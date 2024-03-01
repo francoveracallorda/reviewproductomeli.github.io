@@ -150,15 +150,31 @@
     const feedbackBox = document.getElementById('feedback-box');
     const mensajeFinal = document.getElementById('mensaje-final');
 
-    stars.forEach(star => {
-        star.addEventListener('click', function() {
+stars.forEach(star => {
+    star.addEventListener('click', function(event) {
+        // Evita el comportamiento predeterminado del evento de clic
+        event.preventDefault();
+        
+        // Verifica si el evento es un toque (touch)
+        if (event.type === 'touchstart' || event.type === 'touchend') {
+            // Realiza las acciones deseadas para eventos táctiles
             if (this.value <= 3) {
                 feedbackBox.style.display = 'block';
             } else {
-                window.location.href = 'https://www.mercadolibre.com.uy/my-reviews?tab=PENDING?'; // Enlace deseado para calificaciones altas
+                window.location.href = 'https://www.mercadolibre.com.uy/my-reviews?'; // Enlace deseado para calificaciones altas
             }
-        }); 
+        }
     });
+
+    // Agrega también un manejo de eventos para clics normales en caso de que el dispositivo no sea táctil
+    star.addEventListener('click', function() {
+        if (this.value <= 3) {
+            feedbackBox.style.display = 'block';
+        } else {
+            window.location.href = 'https://www.mercadolibre.com.uy/my-reviews?'; // Enlace deseado para calificaciones altas
+        }
+    });
+});
 
     function enviarFeedback() {
         const feedback = document.getElementById('feedback').value;
