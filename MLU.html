@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLU</title>
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background-color: #006bd6; /* Fondo azul */
+        color: #FFFFFF; /* Texto blanco */
+    }
+    #mlu-input {
+        margin-top: 100px;
+    }
+    input[type="text"] {
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    input[type="submit"] {
+        margin-top: 20px;
+        background-color: #ff03a7;
+        color: #FFFFFF;
+        font-size: 14px;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
 
+<h1>Ingresa el MLU del producto:</h1>
+
+<form id="mlu-form">
+    <input type="text" id="mlu" placeholder="Escribe el MLU aquí">
+    <input type="submit" value="Enviar">
+</form>
+
+<script>
+    document.getElementById('mlu-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const mluValue = document.getElementById('mlu').value;
+        if (!mluValue) {
+            alert('Por favor, ingresa un MLU válido.');
+            return;
+        }
+        const mluNumber = mluValue.match(/\d+/)[0];
+        window.location.href = `indexmeli.html?mlu=${mluNumber}`;
+    });
+</script>
+
+</body>
+</html>
