@@ -19,12 +19,9 @@
     input[type="text"] {
         width: 80%;
         max-width: 600px;
-        margin: 0 auto;
+        margin-bottom: 10px; /* Separación entre el cuadro de texto y el botón */
         border-radius: 5px;
         padding: 10px;
-    }
-    input[type="submit"] {
-        display: none; /* Ocultar el botón de enviar */
     }
     #mlu-textbox {
         margin-top: 20px;
@@ -35,6 +32,15 @@
         padding: 10px 20px;
         cursor: pointer;
         border-radius: 5px;
+    }
+    #copy-button {
+        background-color: #ff03a7;
+        color: #FFFFFF;
+        font-size: 14px;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 20px; /* Hacer el botón redondeado */
     }
 </style>
 </head>
@@ -51,7 +57,17 @@
 <script>
     document.getElementById('mlu').addEventListener('input', function() {
         const mluValue = this.value;
-        const mluNumber = mluValue.match(/\d+/)?.[0] || '';
+        let mluNumber = '';
+        if (mluValue.startsWith('https://www.mercadolibre.com.uy')) {
+            // Extraer el segundo MLU del enlace si comienza con el patrón dado
+            const match = mluValue.match(/\/p\/MLU\d+\?pdp_filters=item_id:MLU(\d+)/);
+            if (match && match[1]) {
+                mluNumber = match[1];
+            }
+        } else {
+            // Si no es un enlace de MercadoLibre, extraer el MLU directamente
+            mluNumber = mluValue.match(/\d+/)?.[0] || '';
+        }
         const link = `https://tuopinion.github.io/universal/index.html?mlu=${mluNumber}`;
         const textbox = document.getElementById('mlu-textbox');
         textbox.innerHTML = `Gracias por tu compra! Califica tu experiencia con nosotros del 1 al 5⭐ a través del siguiente link: 
@@ -59,7 +75,7 @@
 
     });
 
-    // Función para copiar el texto al portapapeles
+    // Función para copiar el texto al portapapeles y redirigir
     function copyText() {
         const textbox = document.getElementById('mlu-textbox');
         const range = document.createRange();
@@ -69,16 +85,24 @@
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
         alert('Texto copiado al portapapeles');
-
+        
         // Redireccionar al usuario
         const mluValue = document.getElementById('mlu').value;
-        const mluNumber = mluValue.match(/\d+/)?.[0] || '';
+        let mluNumber = '';
+        if (mluValue.startsWith('https://www.mercadolibre.com.uy')) {
+            const match = mluValue.match(/\/p\/MLU\d+\?pdp_filters=item_id:MLU(\d+)/);
+            if (match && match[1]) {
+                mluNumber = match[1];
+            }
+        } else {
+            mluNumber = mluValue.match(/\d+/)?.[0] || '';
+        }
         const redirectLink = `index.html?mlu=${mluNumber}`;
         window.location.href = redirectLink;
     }
 </script>
 
-<button onclick="copyText()">Copiar y Enviar</button>
+<button id="copy-button" onclick="copyText()">Copiar y Enviar</button>
 
 </body>
 </html>
