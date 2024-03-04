@@ -24,6 +24,9 @@
         padding: 10px;
     }
     input[type="submit"] {
+        display: none; /* Ocultar el botón de enviar */
+    }
+    #mlu-textbox {
         margin-top: 20px;
         background-color: #ff03a7;
         color: #FFFFFF;
@@ -41,22 +44,41 @@
 
 <form id="mlu-form">
     <input type="text" id="mlu" placeholder="Escribe el MLU aquí">
-    <input type="submit" value="Enviar">
 </form>
 
+<div id="mlu-textbox"></div> <!-- Aquí se mostrará el cuadro de texto -->
+
 <script>
-    document.getElementById('mlu-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const mluValue = document.getElementById('mlu').value;
-        if (!mluValue) {
-            alert('Por favor, ingresa un MLU válido.');
-            return;
-        }
-        const mluNumber = mluValue.match(/\d+/)[0];
-        window.location.href = `index.html?mlu=${mluNumber}`;
+    document.getElementById('mlu').addEventListener('input', function() {
+        const mluValue = this.value;
+        const mluNumber = mluValue.match(/\d+/)?.[0] || '';
+        const link = `https://tuopinion.github.io/universal/index.html?mlu=${mluNumber}`;
+        const textbox = document.getElementById('mlu-textbox');
+        textbox.innerHTML = `Gracias por tu compra! Califica tu experiencia con nosotros del 1 al 5⭐ a través del siguiente link: 
+ <a href="${link}" target="_blank">👉 ${link} 👈</a>`;
+
     });
+
+    // Función para copiar el texto al portapapeles
+    function copyText() {
+        const textbox = document.getElementById('mlu-textbox');
+        const range = document.createRange();
+        range.selectNode(textbox);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        alert('Texto copiado al portapapeles');
+
+        // Redireccionar al usuario
+        const mluValue = document.getElementById('mlu').value;
+        const mluNumber = mluValue.match(/\d+/)?.[0] || '';
+        const redirectLink = `index.html?mlu=${mluNumber}`;
+        window.location.href = redirectLink;
+    }
 </script>
 
-    
+<button onclick="copyText()">Copiar y Enviar</button>
+
 </body>
 </html>
