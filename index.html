@@ -155,9 +155,10 @@
             if (this.value <= 3) {
                 feedbackBox.style.display = 'block';
             } else {
-                // Abrir el enlace en una nueva pestaña del navegador
-                const ratingValue = this.value; // Obtener el valor de la calificación
-                window.open(`https://reviews.mercadolibre.com.uy/review/MLU652405090?origin=my-reviews-pending&rating=${ratingValue}`);
+                const ratingValue = this.value;
+                const params = new URLSearchParams(window.location.search);
+                const mluValue = params.get('mlu');
+                window.open(`https://reviews.mercadolibre.com.uy/review/MLU${mluValue}?origin=my-reviews-pending&rating=${ratingValue}`);
             }
         });
     });
