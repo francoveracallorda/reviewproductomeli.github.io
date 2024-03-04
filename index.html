@@ -150,16 +150,17 @@
     const feedbackBox = document.getElementById('feedback-box');
     const mensajeFinal = document.getElementById('mensaje-final');
 
-stars.forEach(star => {
-    star.addEventListener('click', function() {
-        if (this.value <= 3) {
-            feedbackBox.style.display = 'block';
-        } else {
-            // Abrir el enlace en una nueva pestaña del navegador
-          window.open('https://www.mercadolibre.com.uy/my-reviews?origin=my-purchases-list');
-        }
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            if (this.value <= 3) {
+                feedbackBox.style.display = 'block';
+            } else {
+                // Abrir el enlace en una nueva pestaña del navegador
+                const ratingValue = this.value; // Obtener el valor de la calificación
+                window.open(`https://reviews.mercadolibre.com.uy/review/MLU652405090?origin=my-reviews-pending&rating=${ratingValue}`);
+            }
+        });
     });
-});
     function enviarFeedback() {
         const feedback = document.getElementById('feedback').value;
         // Aquí puedes agregar la lógica para enviar el feedback por correo electrónico
