@@ -37,7 +37,8 @@
         transition: color 0.3s;
     }
     .stars label:hover,
-    .stars input[type="radio"]:checked ~ label {
+    .stars input[type="radio"]:checked ~ label,
+    .stars input[type="radio"]:hover ~ label {
         color: #ffd700; /* Color de estrella seleccionada */
     }
     #feedback-box {
@@ -169,7 +170,19 @@
                 window.open(`https://reviews.mercadolibre.com.uy/review/MLU${mluValue}?origin=my-reviews-pending&rating=${ratingValue}`);
             }
         });
+
+        star.addEventListener('mouseover', function() {
+            const rating = parseInt(this.value);
+            for (let i = 0; i < stars.length; i++) {
+                if (i < rating) {
+                    stars[i].nextElementSibling.style.color = '#ffd700';
+                } else {
+                    stars[i].nextElementSibling.style.color = '#ddd';
+                }
+            }
+        });
     });
+
     function enviarFeedback() {
         const feedback = document.getElementById('feedback').value;
         // Aquí puedes agregar la lógica para enviar el feedback por correo electrónico
