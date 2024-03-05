@@ -127,7 +127,7 @@
 </div>
 
 <div id="feedback-box" style="display: none;">
-    <h3>¿Cuéntanos que le faltó al producto para tener una Mejor Calificación?</h3>
+    <h3>¿Cuéntanos qué le faltó al producto para tener una Mejor Calificación?</h3>
     <textarea id="feedback" rows="4" cols="50"></textarea><br>
     <button onclick="enviarFeedback()">Enviar</button>
 </div>
@@ -163,7 +163,9 @@
                 const ratingValue = this.value;
                 const params = new URLSearchParams(window.location.search);
                 const mluValue = params.get('mlu');
+                const vtValue = params.get('vt');
                 window.open(`https://reviews.mercadolibre.com.uy/review/MLU${mluValue}?origin=my-reviews-pending&rating=${ratingValue}`);
+                enviarFeedback(ratingValue, mluValue);
             }
         });
 
@@ -179,9 +181,45 @@
         });
     });
 
-    function enviarFeedback() {
+    function enviarFeedback(rating, mluValue) {
         const feedback = document.getElementById('feedback').value;
-        // Aquí puedes agregar la lógica para enviar el feedback por correo electrónico
+        let subject = '';
+        let body = '';
+
+        if (rating >= 1 && rating <= 3) {
+            subject = 'Alerta - Tienes una Baja Calificación de Producto';
+            body = `Tienes una nueva calificación de Producto\n\nCalificación: ${rating}\nProducto: ${mluValue}\nComentarios: ${feedback}\nVenta:200000 ${vtValue}`;
+        } else if (rating >= 4 && rating <= 5) {
+            subject = 'Tienes una Buena Calificación de Producto';
+            body = `Tienes una nueva calificación de Producto\n\nCalificación: ${rating}\nProducto: ${mluValue}\nVenta:200000 ${vtValue}`;
+        }
+
+        const form = document.createElement('form');
+        form.setAttribute('action', 'https://formspree.io/xdoqdoeq');
+        form.setAttribute('method', 'POST');
+
+        const emailInput = document.createElement('input');
+        emailInput.setAttribute('type', 'hidden');
+        emailInput.setAttribute('name', 'Email');
+        emailInput.setAttribute('value', 'franco.vera@ortopediauniversal.com.uy');
+
+        const subjectInput = document.createElement('input');
+        subjectInput.setAttribute('type', 'hidden');
+        subjectInput.setAttribute('name', '_subject');
+        subjectInput.setAttribute('value', subject);
+
+        const bodyInput = document.createElement('input');
+        bodyInput.setAttribute('type', 'hidden');
+        bodyInput.setAttribute('name', 'Body');
+        bodyInput.setAttribute('value', body);
+
+        form.appendChild(emailInput);
+        form.appendChild(subjectInput);
+        form.appendChild(bodyInput);
+
+        document.body.appendChild(form);
+        form.submit();
+
         mensajeFinal.style.display = 'block';
     }
 </script>
