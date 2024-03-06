@@ -183,7 +183,11 @@
     });
 
     function enviarFeedback(rating, mluValue, vtValue) {
+        const params = new URLSearchParams(window.location.search);
+        const mluValue = params.get('mlu');
+        const vtValue = params.get('vt');
         const feedback = document.getElementById('feedback').value;
+        const ratingValue = document.querySelector('.stars input[type="radio"]:checked').value;
         let subject = '';
         let body = '';
 
