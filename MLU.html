@@ -100,6 +100,14 @@
     // Limpiar los campos de entrada
     document.getElementById('mlu').value = '';
     document.getElementById('vt').value = '';
+
+
+ // Redirigir a una nueva pestaña con el enlace proporcionado
+    const vtValue = document.getElementById('vt').value;
+    const vtNumber = vtValue.match(/200000(\d+)/)?.[1] || '';
+    const redirectLink = `https://www.mercadolibre.com.uy/ventas/nueva/mensajeria/200000${vtNumber}`;
+    window.open(redirectLink, '_blank');
+}
     }
 </script>
 
