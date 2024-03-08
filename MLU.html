@@ -96,23 +96,9 @@
         window.getSelection().removeAllRanges();
         alert('Texto copiado al portapapeles');
         
-        // Redireccionar al usuario
-        const mluValue = document.getElementById('mlu').value;
-        let mluNumber = '';
-        if (mluValue.startsWith('https://www.mercadolibre.com.uy')) {
-            const match = mluValue.match(/\/p\/MLU\d+\?pdp_filters=item_id:MLU(\d+)/);
-            if (match && match[1]) {
-                mluNumber = match[1];
-            }
-        } else {
-            mluNumber = mluValue.match(/\d+/)?.[0] || '';
-        }
-
-        const vtValue = document.getElementById('vt').value;
-        const vtNumber = vtValue.match(/200000(\d+)/)?.[1] || '';
-
-        const redirectLink = `index.html?mlu=${mluNumber}&vt=${vtNumber}`;
-        window.location.href = redirectLink;
+    // Limpiar los campos de entrada
+    document.getElementById('mlu').value = '';
+    document.getElementById('vt').value = '';
     }
 </script>
 
