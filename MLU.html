@@ -57,68 +57,46 @@
 <div id="mlu-textbox"></div> <!-- Aquí se mostrará el cuadro de texto -->
 
 <script>
-    document.getElementById('mlu').addEventListener('input', updateLink);
-    document.getElementById('vt').addEventListener('input', updateLink);
-
-    function updateLink() {
-        const mluValue = document.getElementById('mlu').value;
-        const vtValue = document.getElementById('vt').value;
-        
-        if (mluValue && vtValue) {
-            let mluNumber = '';
-            if (mluValue.startsWith('https://www.mercadolibre.com.uy')) {
-                // Extraer el segundo MLU del enlace si comienza con el patrón dado
-                const match = mluValue.match(/\/p\/MLU\d+\?pdp_filters=item_id:MLU(\d+)/);
-                if (match && match[1]) {
-                    mluNumber = match[1];
-                }
-            } else {
-                // Si no es un enlace de MercadoLibre, extraer el MLU directamente
-                mluNumber = mluValue.match(/\d+/)?.[0] || '';
-            }
-
-            const vtNumber = vtValue.match(/200000(\d+)/)?.[1] || '';
-
-            const link = `https://tuopinion.github.io/universal/index.html?mlu=${mluNumber}&vt=${vtNumber}`;
-            const textbox = document.getElementById('mlu-textbox');
-            textbox.innerHTML = `¡Hola! Ayúdanos puntuando tu experiencia con nosotros: 
- <a href="${link}" target="_blank">👉 ${link} 👈</a>`;
-        }
-    }
-
-    // Función para copiar el texto al portapapeles y redirigir
-    function copyText() {
-        const textbox = document.getElementById('mlu-textbox');
-        const range = document.createRange();
-        range.selectNode(textbox);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand('copy');
-        window.getSelection().removeAllRanges();
-        alert('Texto copiado al portapapeles');
-        
+// Función para copiar el texto al portapapeles y redirigir
+function copyText() {
+    const textbox = document.getElementById('mlu-textbox');
+    const range = document.createRange();
+    range.selectNode(textbox);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    alert('Texto copiado al portapapeles');
+    
     // Limpiar los campos de entrada
     document.getElementById('mlu').value = '';
     document.getElementById('vt').value = '';
 
-
-    // Redireccionar al usuario
-        const mluValue = document.getElementById('mlu').value;
+    // Generar el enlace y actualizar el cuadro de texto
+    const mluValue = document.getElementById('mlu').value;
+    const vtValue = document.getElementById('vt').value;
+    
+    if (mluValue && vtValue) {
         let mluNumber = '';
         if (mluValue.startsWith('https://www.mercadolibre.com.uy')) {
+            // Extraer el segundo MLU del enlace si comienza con el patrón dado
             const match = mluValue.match(/\/p\/MLU\d+\?pdp_filters=item_id:MLU(\d+)/);
             if (match && match[1]) {
                 mluNumber = match[1];
             }
         } else {
+            // Si no es un enlace de MercadoLibre, extraer el MLU directamente
             mluNumber = mluValue.match(/\d+/)?.[0] || '';
         }
 
-        const vtValue = document.getElementById('vt').value;
         const vtNumber = vtValue.match(/200000(\d+)/)?.[1] || '';
 
-        const redirectLink = `https://www.mercadolibre.com.uy/ventas/nueva/mensajeria/200000${vtNumber}`;
-    window.open(redirectLink, '_blank');
+        const link = `https://tuopinion.github.io/universal/index.html?mlu=${mluNumber}&vt=${vtNumber}`;
+        const textbox = document.getElementById('mlu-textbox');
+        textbox.innerHTML = `¡Hola! Ayúdanos puntuando tu experiencia con nosotros: 
+<a href="${link}" target="_blank">👉 ${link} 👈</a>`;
+    }
+}
     }
         
 }
