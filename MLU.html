@@ -113,7 +113,7 @@
         const vtValue = document.getElementById('vt').value;
         const vtNumber = vtValue.match(/200000(\d+)/)?.[1] || '';
 
-        const redirectLink = `https://www.mercadolibre.com.uy/ventas/nueva/mensajeria/${vtNumber}`;
+        const redirectLink = `https://www.mercadolibre.com.uy/ventas/nueva/mensajeria/200000${vtNumber}`;
         window.open(redirectLink, '_blank');
 
  // Limpiar los campos de entrada
