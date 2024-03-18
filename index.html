@@ -158,9 +158,10 @@
     stars.forEach(star => {
     star.addEventListener('click', function() {
         const ratingValue = this.value;
-        const params = new URLSearchParams(window.location.search);
-        const mluValue = params.get('mlu');
-        const vtValue = params.get('vt');
+        const queryString = window.location.search;
+        const params = new URLSearchParams(queryString);
+        const combinedValue = params.get('mlu');
+        const [mluValue, vtValue] = combinedValue.split('?vt=');
 
         if (this.value <= 3) {
             feedbackBox.style.display = 'block';
@@ -183,9 +184,10 @@
 });
 
 function enviarFeedback() {
-    const params = new URLSearchParams(window.location.search);
-    const mluValue = params.get('mlu');
-    const vtValue = params.get('vt');
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const combinedValue = params.get('mlu');
+    const [mluValue, vtValue] = combinedValue.split('?vt=');
     const feedback = document.getElementById('feedback').value;
     const ratingValue = document.querySelector('.stars input[type="radio"]:checked').value;
 
