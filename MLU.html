@@ -80,7 +80,7 @@
 
             const vtNumber = vtValue.match(/200000(\d+)/)?.[1] || '';
 
-            const link = `https://tuopinion.github.io/universal/index.html?mlu=${mluNumber}&vt=${vtNumber}`;
+            const link = `https://tuopinion.github.io/universal/index.html?mlu=${mluNumber}?vt=${vtNumber}`;
             const textbox = document.getElementById('mlu-textbox');
             textbox.innerHTML = `¡Hola! Ayúdanos puntuando tu experiencia con nosotros: 
  <a href="${link}" target="_blank">👉 ${link} 👈</a>`;
