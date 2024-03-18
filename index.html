@@ -165,7 +165,7 @@
         if (this.value <= 3) {
             feedbackBox.style.display = 'block';
         } else {
-            window.open(`https://reviews.mercadolibre.com.uy/review/MLU${mluValue}?origin=my-reviews-pending&rating=${ratingValue}`);
+            window.open(`https://reviews.mercadolibre.com.uy/review/MLU${mluValue}?origin=my-reviews-pending&rating=${ratingValue}`, '_blank');
             enviarFeedback(ratingValue, mluValue, vtValue);
         }
     });
