@@ -199,17 +199,20 @@ function enviarFeedback() {
 
     let subject = '';
     let body = '';
+    let actionURL = '';
 
     if (ratingValue >= 1 && ratingValue <= 3) {
+        actionURL = 'https://formspree.io/xwkgavya';
         subject = `Alerta - Tienes una Baja Calificación de Producto 200000${vtValue}`;
         body = `Tienes una nueva calificación de Producto\n\nCalificación: ${ratingValue}\nProducto: ${mluValue}\nComentarios: ${feedback}\nVenta: 200000${vtValue}`;
     } else if (ratingValue >= 4 && ratingValue <= 5) {
+        actionURL = 'https://formspree.io/xoqgljab';
         subject = `Tienes una Buena Calificación de Producto 200000${vtValue}`;
         body = `Tienes una nueva calificación de Producto\n\nCalificación: ${ratingValue}\nProducto: ${mluValue}\nVenta: 200000${vtValue}`;
     }
 
     const form = document.createElement('form');
-    form.setAttribute('action', 'https://formspree.io/xoqgljab');
+    form.setAttribute('action', actionURL);
     form.setAttribute('method', 'POST');
 
     const emailInput = document.createElement('input');
